@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sed -i "s/passwd: \"beef\"/passwd: \"$BEEF_PASSWORD\"/" config.yaml
-sed -i "s/user:   \"beef\"/user: \"$BEEF_USER\"/" config.yaml
+sed -i "s/passwd: \"beefuser\"/passwd: \"$BEEF_PASSWORD\"/" config.yaml
+sed -i "s/user:   \"beefpass\"/user: \"$BEEF_USER\"/" config.yaml
 
 if [ "$BEEF_SSL" == "true" ]; then
     ./generate-certificate
