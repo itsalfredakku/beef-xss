@@ -1,4 +1,4 @@
-FROM parrotsec/core
+FROM debian:bullseye
 
 # Set up environment
 ENV LC_ALL C.UTF-8
@@ -6,13 +6,13 @@ ENV STAGING_KEY=RANDOM
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TERM xterm
 
-# Update packages and install necessary tools
+# Update package manager and install necessary tools
 RUN apt-get update && apt-get install -y \
     curl \
     git \
     build-essential \
     openssl \
-    libreadline6-dev \
+    libreadline-dev \
     zlib1g \
     zlib1g-dev \
     libssl-dev \
@@ -33,28 +33,17 @@ RUN apt-get update && apt-get install -y \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone BeEF
+# Clone BeEF repository
 RUN git clone https://github.com/beefproject/beef.git /beef
 
-# Copy ./entrypoint.sh to /beef
-COPY ./entrypoint.sh /beef
+# Copy entrypoint script
+COPY ./entrypoint.sh /beef/entrypoint.sh
 
-# Set working directory to BeEF
+# Set working directory
 WORKDIR /beef
-
-# Debug: Display the contents of the installation script
-RUN cat ./install
-
-# Debug: Try running the installation script manually
-RUN chmod +x ./install && ./install
-
-# Install BeEF
-RUN ./install
-
-# Set entrypoint app directory
-ENTRYPOINT ["./entrypoint.sh"]
 
 # Expose BeEF port
 EXPOSE 3000
 
-CMD ["/bin/sh"]
+# Entrypoint script
+ENTRYPOINT ["./entrypoint.sh"]
