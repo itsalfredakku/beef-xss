@@ -42,6 +42,15 @@ COPY ./entrypoint.sh /beef/entrypoint.sh
 # Set working directory
 WORKDIR /beef
 
+# Install Bundler
+RUN gem install bundler
+
+# Copy Gemfile and Gemfile.lock
+COPY Gemfile Gemfile.lock ./
+
+# Install gems
+RUN bundle install
+
 # Install BeEF
 RUN ./install
 
