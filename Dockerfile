@@ -36,7 +36,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install rbenv
 RUN apt-get update \
-    && apt-get install rbenv
+    && apt-get install -y rbenv
 
 # Install Ruby version 3.3.0 using rbenv
 RUN apt-get update \
