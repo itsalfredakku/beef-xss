@@ -1,7 +1,10 @@
 FROM ruby:3.0
 
 # Set up environment
+ENV LC_ALL C.UTF-8
+ENV STAGING_KEY=RANDOM
 ENV DEBIAN_FRONTEND=noninteractive
+ENV TERM xterm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
