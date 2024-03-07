@@ -31,6 +31,7 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     libcurl4-openssl-dev \
     wget \
+    ruby \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone BeEF repository
