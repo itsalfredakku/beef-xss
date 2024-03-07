@@ -45,9 +45,6 @@ WORKDIR /beef
 # Install Bundler
 RUN gem install bundler
 
-# Copy Gemfile and Gemfile.lock
-COPY Gemfile Gemfile.lock ./
-
 # Install gems
 RUN bundle install
 
