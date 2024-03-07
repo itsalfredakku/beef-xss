@@ -35,7 +35,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Ruby version 3.0 or later using RVM
-RUN /bin/bash -l -c "apt install ruby3.0"
+RUN apt-get update \
+    && apt-get install ruby ruby-dev -y \
+    && ruby --version
 
 # Clone BeEF repository
 RUN git clone https://github.com/beefproject/beef.git /beef
