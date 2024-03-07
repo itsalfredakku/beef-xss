@@ -51,8 +51,10 @@ RUN chmod +x ./install && ./install
 # Install BeEF
 RUN ./install
 
+# Set entrypoint app directory
+ENTRYPOINT ["./entrypoint.sh"]
+
 # Expose BeEF port
 EXPOSE 3000
 
-# Set entrypoint app directory
-ENTRYPOINT ["/"]
+CMD ["/bin/sh"]
