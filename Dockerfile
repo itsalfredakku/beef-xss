@@ -1,11 +1,10 @@
-FROM debian:bullseye
+FROM ubuntu:latest
 
 # Set up environment
 ENV LC_ALL C.UTF-8
 ENV STAGING_KEY=RANDOM
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TERM xterm
-
 
 # Update package manager and install necessary tools
 RUN apt-get update && apt-get install -y \
