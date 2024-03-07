@@ -42,6 +42,9 @@ COPY ./entrypoint.sh /beef/entrypoint.sh
 # Set working directory
 WORKDIR /beef
 
+# Install BeEF
+RUN ./install
+
 # Expose BeEF port
 EXPOSE 3000
 
