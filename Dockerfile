@@ -34,9 +34,12 @@ RUN apt-get update && apt-get install -y \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Ruby version 3.0 or later using RVM
+# Install rbenv
+RUN apt install rbenv
+
+# Install Ruby version 3.3.0 using rbenv
 RUN apt-get update \
-    && apt-get install ruby ruby-dev -y \
+    && rbenv install 3.3.0 \
     && ruby --version
 
 # Clone BeEF repository
