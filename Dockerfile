@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ruby:3.2.1-slim-bullseye
 
 # Set up environment
 ENV LC_ALL C.UTF-8
@@ -32,16 +32,6 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     wget \
     && rm -rf /var/lib/apt/lists/*
-
-# Install rbenv
-RUN apt-get update \
-    && apt-get install -y rbenv
-
-# List Latest Stable
-RUN rbenv install -l
-
-# Install Ruby
-RUN rbenv install 3.1.2
 
 # Clone BeEF repository
 RUN git clone https://github.com/beefproject/beef.git /beef
