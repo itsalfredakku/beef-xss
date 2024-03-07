@@ -38,8 +38,11 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update \
     && apt-get install -y rbenv
 
-# Install Ruby version 3.3.0 using rbenv
-RUN rbenv install -L && rbenv install 3.1.2
+# List Latest Stable
+RUN rbenv install -l
+
+# Install Ruby
+RUN rbenv install 3.1.2
 
 # Clone BeEF repository
 RUN git clone https://github.com/beefproject/beef.git /beef
