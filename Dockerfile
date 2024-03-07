@@ -1,57 +1,42 @@
-FROM ruby:3.0-slim
+FROM ruby:3.0
 
-WORKDIR /home/
+# Set up environment
+ENV DEBIAN_FRONTEND=noninteractive
 
-ENV LC_ALL C.UTF-8
-ENV STAGING_KEY RANDOM
-ENV DEBIAN_FRONTEND noninteractive
-ENV TERM xterm
-
-# Install required dependencies
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        net-tools \
-        curl \
-        git \
-        build-essential \
-        openssl \
-        libreadline6-dev \
-        zlib1g \
-        zlib1g-dev \
-        libssl-dev \
-        libyaml-dev \
-        libsqlite3-0 \
-        libsqlite3-dev \
-        sqlite3 \
-        libxml2-dev \
-        libxslt1-dev \
-        autoconf \
-        libc6-dev \
-        libncurses5-dev \
-        automake \
-        libtool \
-        bison \
-        nodejs \
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    build-essential \
+    openssl \
+    libreadline6-dev \
+    zlib1g \
+    zlib1g-dev \
+    libssl-dev \
+    libyaml-dev \
+    libsqlite3-0 \
+    libsqlite3-dev \
+    sqlite3 \
+    libxml2-dev \
+    libxslt1-dev \
+    autoconf \
+    libc6-dev \
+    libncurses5-dev \
+    automake \
+    libtool \
+    bison \
+    nodejs \
+    libcurl4-openssl-dev \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone the beef repository
-RUN git clone --depth=1 --recursive https://github.com/beefproject/beef/ /home/beef
-
-# Run the install script
-RUN cd /home/beef \
+# Install BeEF
+RUN git clone https://github.com/beefproject/beef.git /opt/beef \
+    && cd /opt/beef \
     && ./install
 
-# Remove unnecessary files and packages
-RUN rm -rf /home/beef/.git \
-    && apt-get remove -y git build-essential automake \
-    && apt-get autoremove -y
-
-WORKDIR /home/beef/
-
-#NOTE - have to chmod 755 entrypoint script on source filesystem or it will not be executable inside container!
-COPY entrypoint.sh /home/beef/entrypoint.sh
-ENTRYPOINT ["/home/beef/entrypoint.sh"]
-
+# Expose BeEF port
 EXPOSE 3000
 
-CMD ["/bin/sh"]
+# Set entrypoint
+ENTRYPOINT ["/opt/beef/beef"]
