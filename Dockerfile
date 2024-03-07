@@ -42,6 +42,12 @@ COPY ./entrypoint.sh /beef
 # Set working directory to BeEF
 WORKDIR /beef
 
+# Debug: Display the contents of the installation script
+RUN cat ./install
+
+# Debug: Try running the installation script manually
+RUN chmod +x ./install && ./install
+
 # Install BeEF
 RUN ./install
 
