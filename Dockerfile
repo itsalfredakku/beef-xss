@@ -37,10 +37,6 @@ RUN apt-get update \
 # Clone the beef repository
 RUN git clone --depth=1 --recursive https://github.com/beefproject/beef/ /home/beef
 
-# Copy the install script into the beef directory
-COPY install /home/beef/install
-
-
 # Run the install script
 RUN cd /home/beef \
     && ./install
