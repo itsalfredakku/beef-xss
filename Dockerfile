@@ -6,6 +6,7 @@ ENV STAGING_KEY=RANDOM
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TERM xterm
 
+
 # Update package manager and install necessary tools
 RUN apt-get update && apt-get install -y \
     curl \
@@ -31,8 +32,10 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     libcurl4-openssl-dev \
     wget \
-    ruby \
     && rm -rf /var/lib/apt/lists/*
+
+# Install Ruby 3.0 or later
+RUN apt-get update && apt-get install -y ruby
 
 # Clone BeEF repository
 RUN git clone https://github.com/beefproject/beef.git /beef
