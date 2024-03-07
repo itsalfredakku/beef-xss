@@ -22,7 +22,7 @@ ENV TERM xterm
 RUN apt-get update && \
     apt-get install -y net-tools curl git build-essential openssl libreadline6-dev zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libncurses5-dev automake libtool bison nodejs && \
     cd /home/ && \
-    git clone --depth=1 --recursive https://github.com/beefproject/beef/ /home/beef && \
+    git clone --depth=1 --recursive https://github.com/itsalfredakku/docker-beef/ /home/beef && \
     cd /home/beef && \
     bundle install --without test development && \
     ./generate-certificate && \
