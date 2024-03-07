@@ -1,4 +1,4 @@
-FROM ruby:2.7-slim
+FROM ruby:3.0-slim
 #FROM ruby:2.7.5-alpine
 
 WORKDIR /home/
@@ -19,45 +19,19 @@ ENV TERM xterm
 #    apk del git build-base automake && \
 #    rm -rf /var/cache/apk/*
 
-RUN apt-get update && \
-    apt-get install -y net-tools curl git build-essential openssl libreadline6-dev zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libncurses5-dev automake libtool bison nodejs && \
-    cd /home/ && \
-    git clone --depth=1 --recursive https://github.com/itsalfredakku/docker-beef/ /home/beef && \
-    cd /home/beef && \
-    bundle install --without test development && \
-    ./generate-certificate && \
-    rm -rf /home/beef/.git && \
-    apt-get remove -y git build-essential automake && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get install -y net-tools curl git build-essential openssl libreadline6-dev zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev autoconf libc6-dev libncurses5-dev automake libtool bison nodejs
+RUN cd /home/
+RUN git clone --depth=1 --recursive https://github.com/beefproject/beef/ /home/beef
+RUN cd /home/beef
+RUN bundle install --without test development
+RUN ./generate-certificate
+RUN rm -rf /home/beef/.git
+RUN apt-get remove -y git build-essential automake
+RUN apt-get autoremove -y
+RUN rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/beef/
-
-ENV BEEF_WAITTIME="0" \
-    BEEF_DEBUG="false" \
-    BEEF_USER="beefuser" \
-    BEEF_PASSWORD="beefpass" \
-    # BEEF_SSL="true" \
-    #BEEF_PUBLIC_IP="fqdn.domain.com" \
-    #BEEF_PUBLIC_PORT="443" \
-    #BEEF_SSL_PUBLIC="true" \
-    BEEF_MSF_ENABLE="false" \
-    #MSF_RPC_HOST="0.0.0.0" \
-    #MSF_RPC_PORT="55553" \
-    #MSF_RPC_USER="msfuser" \
-    #MSF_RPC_PASS="msfpass" \
-    #MSF_RPC_SSL="true" \
-    #MSF_SSL_VERIFY="false" \
-    #MSF_CALLBACK_HOST="fqdn.domain.com" \
-    BEEF_SE_ENABLE="false"  \
-    #SE_POSH_HOST="fqdn.domain.com" \
-    #SE_POSH_PORT="4343" \
-    BEEF_EMAIL_ENABLE="false" \
-    #BEEF_EMAIL_TO="none@none.com" \
-    #BEEF_EMAIL_FROM="none@none.com" \
-    #BEEF_EMAIL_HOST="smtp.none.com" \
-    #BEEF_EMAIL_PORT="25" \
-    BEEF_PHISHINGFRENZY_ENABLE="false"
 
 #NOTE - have to chmod 755 entrypoint script on source filesystem or it will not be executable inside container!
 COPY entrypoint.sh /home/beef/entrypoint.sh
