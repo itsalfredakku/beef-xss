@@ -30,13 +30,14 @@ RUN apt-get update && apt-get install -y \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
+# Clone BeEF
+RUN git clone https://github.com/beefproject/beef.git ./ 
+
 # Install BeEF
-RUN git clone https://github.com/beefproject/beef.git /opt/beef \
-    && cd /opt/beef \
-    && ./install
+RUN ./install
 
 # Expose BeEF port
 EXPOSE 3000
 
 # Set entrypoint
-ENTRYPOINT ["/opt/beef/entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
