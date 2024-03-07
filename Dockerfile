@@ -31,7 +31,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone BeEF
-RUN git clone https://github.com/beefproject/beef.git ./ 
+RUN git clone https://github.com/beefproject/beef.git ./beef
+
+# Move ./beef/* to ./ and remove ./beef
+RUN mv ./beef/* . && rm -rf ./beef
 
 # Install BeEF
 RUN ./install
