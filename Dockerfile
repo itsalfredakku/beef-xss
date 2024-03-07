@@ -33,6 +33,9 @@ RUN apt-get update && apt-get install -y \
 # Clone BeEF
 RUN git clone https://github.com/beefproject/beef.git /beef
 
+# Copy ./entrypoint.sh to /beef
+COPY ./entrypoint.sh /beef
+
 # Set working directory to BeEF
 WORKDIR /beef
 
@@ -42,5 +45,5 @@ RUN ./install
 # Expose BeEF port
 EXPOSE 3000
 
-# Set entrypoint
-ENTRYPOINT ["./entrypoint.sh"]
+# Set entrypoint app directory
+ENTRYPOINT ["/"]
