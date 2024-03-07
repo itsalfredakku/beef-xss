@@ -39,4 +39,4 @@ RUN git clone https://github.com/beefproject/beef.git /opt/beef \
 EXPOSE 3000
 
 # Set entrypoint
-ENTRYPOINT ["/opt/beef/beef"]
+ENTRYPOINT ["/opt/beef/entrypoint.sh"]
